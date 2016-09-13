@@ -80,14 +80,14 @@ FpX_multipoint_eval(GEN P,GEN listepoints,GEN n)
 	int i;
 	while(k>0)
 	{
-	tmp2=tmp1;
-	tmp1=cgetg(j+1,t_VEC);
-	i=1;
-	while(i<=j)
-	{
-		gel(tmp1,i)=FpX_rem(gel(tmp2,(i-1)/2+1),gel(gel(arbre,k),i),n);
-		i++;
-	}
+		tmp2=tmp1;
+		tmp1=cgetg(j+1,t_VEC);
+		i=1;
+		while(i<=j)
+		{
+			gel(tmp1,i)=FpX_rem(gel(tmp2,(i-1)/2+1),gel(gel(arbre,k),i),n);
+			i++;
+		}
 	k--;
 	j=2*j;
 	}
@@ -108,7 +108,7 @@ FpX_multipoint_eval(GEN P,GEN listepoints,GEN n)
 				gel(res,l)=gel(gel(tmp1,m),2);
 			l++;
 
-	  }
+		}
 		m++;
 	}
 	gerepileupto(avma,res);
