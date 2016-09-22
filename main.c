@@ -6,11 +6,11 @@
 GEN
 FpX_product_tree(GEN v,GEN n)
 {
-	int nbetages=0;
-	int t=1;
-	int d=lg(v)-2;
-	int j;
-	int prop1;
+	long nbetages=0;
+	long t=1;
+	long d=lg(v)-2;
+	long j;
+	long prop1;
 	while(d>0)
 	{
 		d=d/2;
@@ -22,8 +22,8 @@ FpX_product_tree(GEN v,GEN n)
 
 	prop1=(t/(t-lg(v)+1));
 	if(prop1*(t-lg(v)+1)!=t){prop1++;}
-	int k=0;
-	int l=0;
+	long k=0;
+	long l=0;
 	while(l<=t-1)
 	{   
 		if(k<=lg(v)-2&&l%prop1!=0)
@@ -69,15 +69,15 @@ FpX_multipoint_eval(GEN P,GEN listepoints,GEN n)
 	GEN res;
 	GEN arbre=FpX_product_tree(listepoints,n);
 	pari_printf("Arbre des sous-produits : %Ps\n",arbre);
-	int k=lg(arbre)-1;
+	long k=lg(arbre)-1;
 	GEN tmp1,tmp2;
 
 	tmp1=cgetg(3,t_VEC);
 	gel(tmp1,1)=FpX_rem(P,gel(gel(arbre,k),1),n);
 	gel(tmp1,2)=FpX_rem(P,gel(gel(arbre,k),2),n);
 	k--;
-	int j =4;
-	int i;
+	long j =4;
+	long i;
 	while(k>0)
 	{
 		tmp2=tmp1;
@@ -93,10 +93,10 @@ FpX_multipoint_eval(GEN P,GEN listepoints,GEN n)
 	}
 
 	//Now we clear the artificial zeros
-	int size=lg(listepoints)-1;
+	long size=lg(listepoints)-1;
 	res=cgetg(size+1,t_VEC);
-	int l=1;
-	int m =1;
+	long l=1;
+	long m =1;
 	while(l<=size)
 	{
 		if(RgX_equal(gel(gel(arbre,1),m),mkpoln(1,gen_1))==0)
@@ -121,11 +121,11 @@ ECM_Fast_product(GEN a,GEN b,GEN n)
 {   
 	GEN res=gen_1;
 	GEN list=FpX_product_tree(a,n);
-	int k = lg(list);
+	long k = lg(list);
 	GEN F=FpX_mul(gel(gel(list,k-1),1),gel(gel(list,k-1),2),n);
 	GEN tmp=FpX_multipoint_eval(F,b,n);
 	k=lg(tmp)-1;
-	int i =1;
+	long i =1;
 	while(i<=k)
 	{
 		res=Fp_mul(res,gel(tmp,i),n);
@@ -143,7 +143,7 @@ main()
   GEN P=RgX_shift(mkpoln(1,gen_1),50);
   GEN n=mkintn(1,101);
   GEN v=cgetg(102,t_VEC);
-  int k=1;
+  long k=1;
   while(k<=101)
   {
     gel(v,k)=mkintn(1,k);
